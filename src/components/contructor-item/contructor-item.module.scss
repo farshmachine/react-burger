@@ -1,0 +1,29 @@
+.wrapper {
+  display: flex;
+  height: 80px;
+  box-sizing: border-box;
+  width: 600px;
+  align-items: center;
+  border: 1px dashed #4c4cff;
+}
+
+.icon {
+  width: 24px;
+  border: 1px dashed #4c4cff;
+}
+
+.image {
+  height: 40px;
+  border: 1px dashed #4c4cff;
+}
+
+.title {
+  flex-grow: 2;
+  border: 1px dashed #4c4cff;
+}
+
+.delete {
+  border: 1px dashed #4c4cff;
+
+  margin-left: 20px;
+}

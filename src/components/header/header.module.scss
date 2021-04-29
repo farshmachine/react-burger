@@ -1,0 +1,17 @@
+.wrapper {
+  width: 1920px;
+  height: 88px;
+  margin: 0 auto;
+  padding: 0 320px;
+  display: flex;
+  align-items: center;
+  background-color: #1c1c21;
+  box-sizing: border-box;
+  border: 2px solid #4c4cff;
+}
+
+.logo {
+  margin-left: 112px;
+  margin-right: auto;
+  border: 1px dashed #4c4cff;
+}
