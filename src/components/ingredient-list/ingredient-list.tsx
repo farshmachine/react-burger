@@ -15,7 +15,7 @@ const IngredientList: FC<IngredientListProps> = ({ items, title }) => {
       <Title type='medium' className='mb-4'>
         {title}
       </Title>
-      <div className={`${styles.container} pl-2 pr-2`}>
+      <div className={`${styles.container} pl-2 pr-2 pb-1`}>
         {items.map((el) => (
           <IngredientCard item={el} key={el._id} />
         ))}
