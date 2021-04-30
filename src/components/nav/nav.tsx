@@ -27,7 +27,7 @@ const Nav: FC<NavProps> = () => {
     <nav>
       <ul className={styles.nav}>
         {navItems.map(({ title, icon, type }) => (
-          <NavItem title={title} icon={icon} type={type} />
+          <NavItem title={title} icon={icon} type={type} key={title} />
         ))}
       </ul>
     </nav>

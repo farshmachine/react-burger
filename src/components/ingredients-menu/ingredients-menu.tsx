@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { mockData } from '../../utils/data';
 import IngredientList from '../ingredient-list/ingredient-list';
 import styles from './ingredients-menu.module.scss';
 
@@ -40,7 +39,7 @@ const IngredientsMenu: FC<IngredientsMenuProps> = ({ items, tabs }) => {
   return (
     <div className={styles.wrapper}>
       {tabs.map(({ label, key }) => (
-        <IngredientList items={ingredients[key]} title={label} />
+        <IngredientList items={ingredients[key]} title={label} key={label} />
       ))}
     </div>
   );

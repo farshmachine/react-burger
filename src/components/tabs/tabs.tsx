@@ -13,9 +13,9 @@ export type TabsProps = {
 const Tabs: FC<TabsProps> = ({ items, defaultTab = 0 }) => {
   const [active, setActive] = useState<string>(items[defaultTab].label);
   return (
-    <div style={{ display: 'flex', marginBottom: '40px' }}>
+    <div className={styles.wrapper}>
       {items.map(({ label }) => (
-        <div className={styles.tab}>
+        <div className={styles.tab} key={label}>
           <Tab
             value={label}
             active={active === label}

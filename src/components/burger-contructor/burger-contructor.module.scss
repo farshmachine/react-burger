@@ -1,6 +1,8 @@
 .container {
   width: 600px;
   border: 2px solid #4c4cff;
+  display: flex;
+  flex-direction: column;
 }
 
 .wrapper {
@@ -8,7 +10,6 @@
   padding: 0;
   height: 756px;
   overflow-y: auto;
-  border: 1px dashed #4c4cff;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -42,7 +43,7 @@
 
 .basket {
   display: flex;
-  float: right;
+  justify-content: end;
   margin-left: auto;
   align-items: center;
   margin-top: 40px;

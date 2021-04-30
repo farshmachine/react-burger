@@ -2,9 +2,11 @@
   display: flex;
   height: 80px;
   box-sizing: border-box;
-  width: 600px;
+  width: 568px;
   align-items: center;
   border: 1px dashed #4c4cff;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .icon {
@@ -26,4 +28,14 @@
   border: 1px dashed #4c4cff;
 
   margin-left: 20px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 78px;
+  background: #1c1c21;
+  border-radius: 40px;
+  flex-grow: 2;
+  padding-right: 32px;
 }

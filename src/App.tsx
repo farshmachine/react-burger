@@ -1,6 +1,6 @@
 import { Header } from './components/header/header';
 import Main from './components/main/main';
-import styles from './app.module.scss';
+import styles from './App.module.scss';
 
 const App = () => {
   return (

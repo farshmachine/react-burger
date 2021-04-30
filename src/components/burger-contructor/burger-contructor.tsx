@@ -14,7 +14,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = ({ data }) => {
     <div className={styles.container}>
       <ul className={`${styles.wrapper}`}>
         {data.map((item) => (
-          <ContructorItem item={item} />
+          <ContructorItem item={item} key={item._id} />
         ))}
       </ul>
       <div className={styles.basket}>
