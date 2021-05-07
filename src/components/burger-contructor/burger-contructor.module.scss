@@ -1,0 +1,56 @@
+.container {
+  width: 600px;
+  border: 2px solid #4c4cff;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  margin-top: 100px;
+  padding: 0;
+  height: 756px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px #2f2f37;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #8585ad;
+    outline: 1px solid #8585ad;
+  }
+}
+
+.price {
+  font-size: 48px;
+  margin-left: auto;
+  padding: 14px 0;
+}
+
+.icon {
+  display: flex;
+  align-items: center;
+  * {
+    width: 33px;
+    height: 33px;
+    margin-top: 4px;
+  }
+}
+
+.basket {
+  display: flex;
+  justify-content: end;
+  margin-left: auto;
+  align-items: center;
+  margin-top: 40px;
+  margin-right: 16px;
+
+  .button {
+    margin-left: 40px;
+    border: 1px dashed #4c4cff;
+  }
+}
