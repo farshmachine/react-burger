@@ -1,16 +1,14 @@
-import { FC, useMemo } from 'react';
-import IngredientsMenu, {
-  Ingredient,
-} from '../ingredients-menu/ingredients-menu';
+import { FC, useContext, useMemo } from 'react';
+import { IngrediendsDataContext } from '../app/app';
+import IngredientsMenu from '../ingredients-menu/ingredients-menu';
 import Tabs from '../tabs/tabs';
 import styles from './burger-inrgedients.module.scss';
 
 type BurgerIngredientsProps = {
-  data: Ingredient[];
   title: JSX.Element;
 };
 
-const BurgerIngredients: FC<BurgerIngredientsProps> = ({ data, title }) => {
+const BurgerIngredients: FC<BurgerIngredientsProps> = ({ title }) => {
   const tabs = useMemo(
     () => [
       {
@@ -29,13 +27,15 @@ const BurgerIngredients: FC<BurgerIngredientsProps> = ({ data, title }) => {
     []
   );
 
-  return (
+  const { data } = useContext(IngrediendsDataContext);
+
+  return data ? (
     <section className={styles.wrapper}>
       {title}
       <Tabs items={tabs} />
       <IngredientsMenu items={data} tabs={tabs} />
     </section>
-  );
+  ) : null;
 };
 
 export default BurgerIngredients;

@@ -1,0 +1,50 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.image {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.content {
+  width: 520px;
+}
+
+.heading {
+  align-self: flex-start;
+  width: 100%;
+  line-height: 62px;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.title {
+  color: #f2f2f3;
+}
+
+.composition {
+  display: flex;
+  justify-content: space-between;
+}
+
+.composition-item {
+  min-width: 112px;
+  border: 1px dashed #4c4cff;
+  .title {
+    text-align: center;
+    border: none;
+  }
+
+  .text {
+    margin-bottom: 0;
+  }
+}
