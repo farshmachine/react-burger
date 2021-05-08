@@ -1,14 +1,14 @@
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useCallback } from 'react';
 import { useModal } from '../../hooks/useModal';
-import { Ingredient } from '../../types/ingredients';
+import { IngredientType } from '../../types/ingredients';
 import Price from '../price/price';
 import Title from '../title/title';
 import cn from 'classnames';
 import styles from './ingredient-card.module.scss';
 
 type IngredientCardProps = {
-  item: Ingredient;
+  item: IngredientType;
 };
 
 const IngredientCard: FC<IngredientCardProps> = ({ item }) => {

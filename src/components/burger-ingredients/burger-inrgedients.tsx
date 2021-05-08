@@ -1,4 +1,5 @@
 import { FC, useContext, useMemo } from 'react';
+import { useIngredientDataValidation } from '../../hooks/useIngredientDataValidation';
 import { IngrediendsDataContext } from '../app/app';
 import IngredientsMenu from '../ingredients-menu/ingredients-menu';
 import Tabs from '../tabs/tabs';
@@ -9,6 +10,14 @@ type BurgerIngredientsProps = {
 };
 
 const BurgerIngredients: FC<BurgerIngredientsProps> = ({ title }) => {
+  const { data } = useContext(IngrediendsDataContext);
+  const status = useIngredientDataValidation(data);
+  const isValidData = status?.type === 'SUCCESS';
+
+  if (!isValidData) {
+    throw Error('Ошибка в модели полученных данных');
+  }
+
   const tabs = useMemo(
     () => [
       {
@@ -27,9 +36,7 @@ const BurgerIngredients: FC<BurgerIngredientsProps> = ({ title }) => {
     []
   );
 
-  const { data } = useContext(IngrediendsDataContext);
-
-  return data ? (
+  return isValidData && data ? (
     <section className={styles.wrapper}>
       {title}
       <Tabs items={tabs} />

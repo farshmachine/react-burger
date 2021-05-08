@@ -18,7 +18,13 @@ const withData = <P extends {}>(url: string | ((props: P) => string)) => (
       setLoading(true);
       const endpoint = typeof url === 'function' ? url(props) : url;
       fetch(endpoint)
-        .then((res) => res.json())
+        .then((res) => {
+          if (!res.ok) {
+            throw new Error('Что-то пошло не так');
+          }
+
+          return res.json();
+        })
         .then(({ data }) => {
           setLoading(false);
           setData(data);

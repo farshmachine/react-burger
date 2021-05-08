@@ -1,12 +1,12 @@
 import { FC } from 'react';
-import { Ingredient } from '../../types/ingredients';
+import { IngrediendsListType } from '../../types/ingredients';
 import IngredientCard from '../ingredient-card/ingredient-card';
 import Title from '../title/title';
 import styles from './ingredient-list.module.scss';
 import cn from 'classnames';
 
 type IngredientListProps = {
-  items: Ingredient[];
+  items: IngrediendsListType;
   title: string;
 };
 

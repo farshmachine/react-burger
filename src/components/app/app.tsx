@@ -3,14 +3,14 @@ import { Header } from '../header/header';
 import Main from '../main/main';
 import styles from './app.module.scss';
 import withData, { WithDataProps } from '../hocs/with-data';
-import { IngrediendsData } from '../../types/ingredients';
+import { IngrediendsListType } from '../../types/ingredients';
 
-type AppProps = WithDataProps<IngrediendsData> & {};
+type AppProps = WithDataProps<IngrediendsListType> & {};
 
 export const IngrediendsDataContext = React.createContext<
-  WithDataProps<IngrediendsData>
+  WithDataProps<IngrediendsListType>
 >({
-  data: undefined,
+  data: [],
   loading: false,
   error: undefined,
 });
