@@ -2,11 +2,13 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useState } from 'react';
 import styles from './tabs.module.scss';
 
+export type TabItem = {
+  label: string;
+  key: string;
+};
+
 export type TabsProps = {
-  items: {
-    label: string;
-    key: string;
-  }[];
+  items: TabItem[];
   defaultTab?: number;
 };
 

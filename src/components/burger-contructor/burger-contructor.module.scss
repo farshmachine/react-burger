@@ -6,10 +6,10 @@
 }
 
 .wrapper {
-  margin-top: 100px;
   padding: 0;
   height: 756px;
   overflow-y: auto;
+  margin-bottom: 0;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -23,6 +23,16 @@
     background-color: #8585ad;
     outline: 1px solid #8585ad;
   }
+}
+
+.item {
+  position: relative;
+  left: -4px;
+  margin-bottom: 0;
+}
+
+.item-first {
+  margin-top: 160px;
 }
 
 .price {

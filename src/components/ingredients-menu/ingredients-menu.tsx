@@ -1,24 +1,10 @@
 import { FC } from 'react';
+import { IngrediendsListType } from '../../types/ingredients';
 import IngredientList from '../ingredient-list/ingredient-list';
 import styles from './ingredients-menu.module.scss';
 
-export type Ingredient = {
-  _id: string;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
-};
-
 type IngredientsMenuProps = {
-  items: Ingredient[];
+  items: IngrediendsListType;
   tabs: {
     label: string;
     key: string;
@@ -27,7 +13,7 @@ type IngredientsMenuProps = {
 
 const IngredientsMenu: FC<IngredientsMenuProps> = ({ items, tabs }) => {
   const ingredients: {
-    [k: string]: Ingredient[];
+    [k: string]: IngrediendsListType;
   } = {
     bun: [],
     main: [],
