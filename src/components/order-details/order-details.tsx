@@ -7,17 +7,20 @@ import Modal from '../modal/modal';
 import { ModalComponentProps } from '../modal-provider/modal-provider';
 import cn from 'classnames';
 
-export type OrderDetailsProps = {};
+export type OrderDetailsProps = {
+  orderId: number;
+};
 
 const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
   isOpened,
   handleClose,
+  orderId,
 }) => {
   return (
     <Modal isOpened={isOpened} handleClose={handleClose}>
       <div className={styles.wrapper}>
         <Digits type='large' className={styles.digits}>
-          034536
+          {orderId}
         </Digits>
         <Title type='medium' className={cn(styles.text, styles.title)}>
           индентификатор заказа

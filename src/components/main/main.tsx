@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import BurgerConstructor from '../burger-contructor/burger-contructor';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-inrgedients';
 import Title from '../title/title';
 import styles from './main.module.scss';

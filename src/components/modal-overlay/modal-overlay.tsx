@@ -26,11 +26,7 @@ const ModalOverlay = ({ children }: { children: ReactNode }) => {
   );
 
   return (
-    <div
-      className={styles.wrapper}
-      onKeyDown={() => console.log('test')}
-      onClick={handleOverlayCloseClick}
-    >
+    <div className={styles.wrapper} onClick={handleOverlayCloseClick}>
       {children}
     </div>
   );

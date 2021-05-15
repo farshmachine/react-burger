@@ -54,9 +54,8 @@ const initialState = {
 };
 
 const ModalProvider = ({ children }: { children: ReactNode }) => {
-  const [{ type, isOpened, modalProps }, setState] = useState<
-    ModalProviderState<ModalType | null>
-  >(initialState);
+  const [{ type, isOpened, modalProps }, setState] =
+    useState<ModalProviderState<ModalType | null>>(initialState);
   const Component = type ? modalsMap[type] : null;
 
   const openModal: ModalOpener = useCallback(

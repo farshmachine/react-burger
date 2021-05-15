@@ -22,10 +22,11 @@ const ContructorItem: FC<ContructorItemProps> = ({
   locked,
 }) => {
   const { image, name, price } = item;
+  const isBun = item.type === 'bun';
   return (
     <div className={cn(styles.wrapper, 'mb-2', className)}>
       <span className={styles.icon}>
-        <DragIcon type='primary' />
+        {!isBun && <DragIcon type='primary' />}
       </span>
       <div className={cn(styles.item, 'ml-1')}>
         <img src={image} alt={name} className={cn(styles.image, 'ml-4')} />

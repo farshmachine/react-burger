@@ -4,29 +4,23 @@
   box-sizing: border-box;
   width: 568px;
   align-items: center;
-  border: 1px dashed #4c4cff;
   margin-left: auto;
   margin-right: auto;
 }
 
 .icon {
   width: 24px;
-  border: 1px dashed #4c4cff;
 }
 
 .image {
   height: 40px;
-  border: 1px dashed #4c4cff;
 }
 
 .title {
   flex-grow: 2;
-  border: 1px dashed #4c4cff;
 }
 
 .delete {
-  border: 1px dashed #4c4cff;
-
   margin-left: 20px;
 }
 
@@ -38,4 +32,16 @@
   border-radius: 40px;
   flex-grow: 2;
   padding-right: 32px;
+
+  &.item-first {
+    margin-top: 160px;
+  }
+
+  &.item-first,
+  &.item-second {
+    display: block;
+    margin-left: 35px;
+    width: 550px;
+    padding-right: 5px;
+  }
 }

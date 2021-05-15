@@ -1,6 +1,5 @@
 .container {
   width: 600px;
-  border: 2px solid #4c4cff;
   display: flex;
   flex-direction: column;
 }
@@ -9,7 +8,7 @@
   padding: 0;
   height: 756px;
   overflow-y: auto;
-  margin-bottom: 0;
+  margin: 0;
 
   &::-webkit-scrollbar {
     width: 8px;
@@ -29,10 +28,6 @@
   position: relative;
   left: -4px;
   margin-bottom: 0;
-}
-
-.item-first {
-  margin-top: 160px;
 }
 
 .price {
@@ -61,6 +56,5 @@
 
   .button {
     margin-left: 40px;
-    border: 1px dashed #4c4cff;
   }
 }
