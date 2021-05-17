@@ -30,18 +30,16 @@
   height: 78px;
   background: #1c1c21;
   border-radius: 40px;
-  flex-grow: 2;
+  width: 100%;
   padding-right: 32px;
-
-  &.item-first {
-    margin-top: 160px;
-  }
 
   &.item-first,
   &.item-second {
     display: block;
     margin-left: 35px;
-    width: 550px;
+    width: 515px;
+    height: 80px;
+
     padding-right: 5px;
   }
 }
