@@ -1,6 +1,6 @@
 import { FC, useContext, useMemo } from 'react';
+import { IngrediendsContext } from '../../contexts/ingredients-context';
 import { useIngredientDataValidation } from '../../hooks/useIngredientDataValidation';
-import { IngrediendsDataContext } from '../app/app';
 import IngredientsMenu from '../ingredients-menu/ingredients-menu';
 import Tabs from '../tabs/tabs';
 import styles from './burger-inrgedients.module.scss';
@@ -10,7 +10,7 @@ type BurgerIngredientsProps = {
 };
 
 const BurgerIngredients: FC<BurgerIngredientsProps> = ({ title }) => {
-  const { data } = useContext(IngrediendsDataContext);
+  const data = useContext(IngrediendsContext);
   const status = useIngredientDataValidation(data);
   const isValidData = status?.type === 'SUCCESS';
 
