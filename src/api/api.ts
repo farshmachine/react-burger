@@ -1,5 +1,5 @@
 import { Api } from '../types/api';
-import { IngredientType } from '../types/ingredients';
+import { Ingredient } from '../types/ingredients';
 import { BASE_URL } from '../utils/constants';
 
 export const api: Api = {
@@ -13,7 +13,7 @@ export const api: Api = {
         return res.json();
       })
       .catch((err) => err),
-  createOrder: (ingredients: IngredientType[]) =>
+  createOrder: (ingredients: Ingredient[]) =>
     fetch(`${BASE_URL}/orders`, {
       method: 'POST',
       body: JSON.stringify({

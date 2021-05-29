@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { forwardRef } from 'react';
 import styles from './title.module.scss';
 import cn from 'classnames';
 
@@ -8,14 +8,22 @@ type TitleProps = {
   className?: string;
 };
 
-const Title: FC<TitleProps> = ({ children, type = 'default', className }) => {
-  return (
-    <p
-      className={cn(className, styles.title, `text_type_main-${type}`, 'text')}
-    >
-      {children}
-    </p>
-  );
-};
+const Title = forwardRef<HTMLParagraphElement, TitleProps>(
+  ({ children, type = 'default', className }, ref) => {
+    return (
+      <p
+        ref={ref}
+        className={cn(
+          className,
+          styles.title,
+          `text_type_main-${type}`,
+          'text'
+        )}
+      >
+        {children}
+      </p>
+    );
+  }
+);
 
 export default Title;

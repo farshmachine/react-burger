@@ -1,52 +1,53 @@
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FC, useCallback, useContext } from 'react';
+import { FC, useCallback } from 'react';
 import { useModal } from '../../hooks/useModal';
-import { IngredientType } from '../../types/ingredients';
+import { Ingredient } from '../../types/ingredients';
 import Price from '../price/price';
 import Title from '../title/title';
 import cn from 'classnames';
 import styles from './ingredient-card.module.scss';
-import { ConstructorContext } from '../../contexts/constructor-context';
+import { useDispatch } from 'react-redux';
+import { setCurrentIngredient } from '../../services/ingredients/ingredients';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { useDrag } from 'react-dnd';
 
 type IngredientCardProps = {
-  item: IngredientType;
+  item: Ingredient;
 };
 
 const IngredientCard: FC<IngredientCardProps> = ({ item }) => {
-  const addItem = useContext(ConstructorContext);
-
-  const { openModal } = useModal();
   const { _id, name, price, image } = item;
+  const { openModal } = useModal();
+  const dispatch = useDispatch();
+  const [, dragRef] = useDrag({
+    type: 'ingredient',
+    item,
+  });
+  const count = useAppSelector((state) => {
+    if (state.counstructor.bun?._id === item._id) {
+      return 2;
+    }
+    return state.counstructor.main.filter((el) => el._id === item._id).length;
+  });
 
-  const handleAddItem = useCallback(
-    (item: IngredientType) => {
-      if (item.type === 'bun') {
-        addItem!((prevState) => ({
-          ...prevState,
-          bun: item,
-        }));
-      } else {
-        addItem!((prevState) => ({
-          bun: prevState.bun,
-          other: [...prevState.other, item],
-        }));
-      }
-    },
-    [addItem]
-  );
-
-  const handleClick = useCallback(() => {
-    handleAddItem(item);
+  const handleIngredientClick = useCallback(() => {
+    dispatch(setCurrentIngredient(item));
     openModal('ingredientDetails', { item });
-  }, [item, openModal, handleAddItem]);
+  }, [item, openModal, dispatch]);
 
   return (
-    <li key={_id} className={styles.card} onClick={handleClick}>
+    <li
+      ref={dragRef}
+      key={_id}
+      className={styles.card}
+      onClick={handleIngredientClick}
+      draggable
+    >
       <img src={image} alt={name} className={cn(styles.image, 'mb-1')} />
       <Price value={price} className='mb-1' />
       <Title className={styles.title}>{name}</Title>
       <div className={styles.counter}>
-        <Counter count={1} size='default' />
+        <Counter count={count} size='default' />
       </div>
     </li>
   );

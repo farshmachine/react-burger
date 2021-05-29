@@ -1,7 +1,7 @@
-import { IngrediendsListType, IngredientType } from './ingredients';
+import { IngredientList, Ingredient } from './ingredients';
 
 export type Api = {
-  createOrder: (i: IngredientType[]) => Promise<{
+  createOrder: (i: Ingredient[]) => Promise<{
     name: string;
     order: {
       number: number;
@@ -9,7 +9,7 @@ export type Api = {
     success: boolean;
   }>;
   getIngredients: () => Promise<{
-    data?: IngrediendsListType;
+    data?: IngredientList;
     success: boolean;
     error?: {
       message: string;

@@ -1,8 +1,6 @@
-import { FC, useContext, useMemo } from 'react';
-import { IngrediendsContext } from '../../contexts/ingredients-context';
-import { useIngredientDataValidation } from '../../hooks/useIngredientDataValidation';
+import { FC, useMemo } from 'react';
 import IngredientsMenu from '../ingredients-menu/ingredients-menu';
-import Tabs from '../tabs/tabs';
+import Tabs, { TabItem } from '../tabs/tabs';
 import styles from './burger-inrgedients.module.scss';
 
 type BurgerIngredientsProps = {
@@ -10,15 +8,7 @@ type BurgerIngredientsProps = {
 };
 
 const BurgerIngredients: FC<BurgerIngredientsProps> = ({ title }) => {
-  const data = useContext(IngrediendsContext);
-  const status = useIngredientDataValidation(data);
-  const isValidData = status?.type === 'SUCCESS';
-
-  if (!isValidData) {
-    throw Error('Ошибка в модели полученных данных');
-  }
-
-  const tabs = useMemo(
+  const tabs: TabItem[] = useMemo(
     () => [
       {
         label: 'Булки',
@@ -36,13 +26,13 @@ const BurgerIngredients: FC<BurgerIngredientsProps> = ({ title }) => {
     []
   );
 
-  return isValidData && data ? (
+  return (
     <section className={styles.wrapper}>
       {title}
       <Tabs items={tabs} />
-      <IngredientsMenu items={data} tabs={tabs} />
+      <IngredientsMenu tabs={tabs} />
     </section>
-  ) : null;
+  );
 };
 
 export default BurgerIngredients;

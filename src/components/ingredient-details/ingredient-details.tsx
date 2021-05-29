@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { IngredientType } from '../../types/ingredients';
+import { Ingredient } from '../../types/ingredients';
 import Digits from '../digits/digits';
 import { ModalComponentProps } from '../modal-provider/modal-provider';
 import Modal from '../modal/modal';
@@ -8,7 +8,7 @@ import styles from './ingredient-details.module.scss';
 import cn from 'classnames';
 
 export type IngredientDetailsProps = {
-  item: IngredientType;
+  item: Ingredient;
 };
 
 const IngredientDetails: FC<ModalComponentProps<'ingredientDetails'>> = ({

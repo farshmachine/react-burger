@@ -1,6 +1,6 @@
 import { Codec, string, array, GetType, number } from 'purify-ts/Codec';
 
-const Ingredient = Codec.interface({
+const ingredient = Codec.interface({
   _id: string,
   name: string,
   type: string,
@@ -13,10 +13,13 @@ const Ingredient = Codec.interface({
   image_mobile: string,
   image_large: string,
   __v: number,
+  uuid: string,
 });
 
-export type IngredientType = GetType<typeof Ingredient>;
+export type Ingredient = GetType<typeof ingredient>;
 
-export const IngredientsList = array(Ingredient);
+export const IngredientsArray = array(ingredient);
 
-export type IngrediendsListType = GetType<typeof IngredientsList>;
+export type IngredientList = GetType<typeof IngredientsArray>;
+
+export type IngredientType = 'bun' | 'main' | 'sauce';

@@ -1,11 +1,11 @@
 import ContructorItem from './contructor-item';
 import cn from 'classnames';
 import styles from './contructor-item.module.scss';
-import { IngredientType } from '../../types/ingredients';
+import { Ingredient } from '../../types/ingredients';
 import { FC } from 'react';
 
 type ConstructorItemBunProps = {
-  item: IngredientType;
+  item: Ingredient & { id: string };
   type: 'first' | 'second';
 };
 
@@ -21,6 +21,7 @@ export const ConstructorItemBun: FC<ConstructorItemBunProps> = ({
       item={bun}
       className={cn(styles.item, styles[`item-${type}`])}
       locked
+      index={-1}
     />
   );
 };
