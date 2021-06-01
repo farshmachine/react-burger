@@ -8,6 +8,7 @@ export const api: Api = {
       .then((res) => {
         if (!res.ok) {
           console.error('Что-то пошло не так');
+          return Promise.reject(res.status);
         }
 
         return res.json();
@@ -26,6 +27,7 @@ export const api: Api = {
       .then((res) => {
         if (!res.ok) {
           console.error('Что-то пошло не так');
+          return Promise.reject(res.status);
         }
 
         return res.json();
