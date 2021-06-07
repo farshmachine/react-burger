@@ -1,4 +1,4 @@
-import React, { ReactNode, useCallback, useEffect } from 'react';
+import { ReactNode, SyntheticEvent, useCallback, useEffect } from 'react';
 import { useModal } from '../../hooks/useModal';
 import styles from './modal-overlay.module.scss';
 
@@ -17,7 +17,7 @@ const ModalOverlay = ({ children }: { children: ReactNode }) => {
   }, [closeModal]);
 
   const handleOverlayCloseClick = useCallback(
-    (e: React.SyntheticEvent<HTMLDivElement>) => {
+    (e: SyntheticEvent<HTMLDivElement>) => {
       if (e.target === e.currentTarget) {
         closeModal();
       }

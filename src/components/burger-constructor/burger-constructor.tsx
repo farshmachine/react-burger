@@ -1,54 +1,93 @@
 import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FC, useCallback, useContext } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { useModal } from '../../hooks/useModal';
 import ContructorItem from '../contructor-item/contructor-item';
 import Price from '../price/price';
 import styles from './burger-constructor.module.scss';
-import { IngrediendsListType, IngredientType } from '../../types/ingredients';
-import { ApiContext } from '../../contexts/api-context';
 import { ConstructorItemBun } from '../contructor-item/constructor-item-bun';
+import cn from 'classnames';
+import { useDispatch } from 'react-redux';
+import { Ingredient } from '../../types/ingredients';
+import { useDrop } from 'react-dnd';
+import {
+  addIngredient,
+  reorderIngredients,
+} from '../../services/constuctor/constructor';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import update from 'immutability-helper';
+import { createOrder } from '../../services/order/order';
 
-type BurgerConstructorProps = {
-  items: IngrediendsListType;
-  bun: IngredientType | undefined;
-};
+type BurgerConstructorProps = {};
 
-const BurgerConstructor: FC<BurgerConstructorProps> = ({ items, bun }) => {
-  const orderApi = useContext(ApiContext);
+const BurgerConstructor: FC<BurgerConstructorProps> = () => {
+  const dispatch = useDispatch();
   const { openModal } = useModal();
-  const ingredients = items.filter((e) => e.type !== 'bun');
-  const bunPrice = bun ? bun.price * 2 : 0;
-  const totalCost =
-    ingredients.reduce((acc, cur) => (acc += cur.price), 0) + bunPrice;
+  const { main, bun, totalPrice } = useAppSelector(
+    (state) => state.counstructor
+  );
+  const { id } = useAppSelector((state) => state.order);
 
-  const handleButtonClick = useCallback(async () => {
-    if (items.length > 0 || bun) {
-      orderApi
-        .createOrder([...items, bun!])
-        .then(({ success, order: { number } }) => {
-          if (success) {
-            openModal('orderDetails', { orderId: number });
-          }
-        });
+  useEffect(() => {
+    if (id) {
+      openModal('orderDetails', { orderId: id });
     }
-  }, [openModal, orderApi, bun, items]);
+  }, [id, openModal]);
+
+  const [, dropTarget] = useDrop({
+    accept: 'ingredient',
+    drop(item: Ingredient) {
+      dispatch(addIngredient(item));
+    },
+  });
+
+  const moveCard = useCallback(
+    (dragIndex, hoverIndex) => {
+      const dragCard = main[dragIndex];
+      dispatch(
+        reorderIngredients(
+          update(main, {
+            $splice: [
+              [dragIndex, 1],
+              [hoverIndex, 0, dragCard],
+            ],
+          })
+        )
+      );
+    },
+    [main, dispatch]
+  );
+
+  const handleButtonClick = useCallback(() => {
+    if (main.length > 0 || bun) {
+      let items = [...main];
+      if (bun) {
+        items.push(bun, bun);
+      }
+      dispatch(createOrder(items));
+    }
+  }, [bun, main, dispatch]);
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={dropTarget}>
       {bun && <ConstructorItemBun item={bun} type='first' />}
       <ul className={`${styles.wrapper}`}>
-        {ingredients.map((item) => (
-          <ContructorItem item={item} key={item._id} />
+        {main.map((item, i) => (
+          <ContructorItem
+            item={item}
+            key={item.id}
+            moveCard={moveCard}
+            index={i}
+          />
         ))}
       </ul>
       {bun && <ConstructorItemBun item={bun} type='second' />}
       <div className={styles.basket}>
         <Price
-          value={totalCost ? totalCost : 0}
+          value={totalPrice}
           iconClassName={styles.icon}
           titleClassName={styles.price}
         />
-        <div className={styles.button}>
+        <div className={cn(styles.button)}>
           <Button type='primary' size='large' onClick={handleButtonClick}>
             Оформить заказ
           </Button>

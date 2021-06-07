@@ -1,16 +1,16 @@
-import { IngrediendsListType, IngredientsList } from '../types/ingredients';
+import { IngredientList, IngredientsArray } from '../types/ingredients';
 
 export type ValidationStatus = 'FAILURE' | 'SUCCESS';
 
 export const useIngredientDataValidation = (
-  data: IngrediendsListType | undefined
+  data: IngredientList | undefined
 ) => {
   if (data) {
-    const decodedIngredients = IngredientsList.decode(data);
+    const decodedIngredients = IngredientsArray.decode(data);
 
     return decodedIngredients.caseOf({
-      Left: () => ({ type: 'FAILURE' }),
-      Right: () => ({ type: 'SUCCESS' }),
+      Left: () => ({ valid: false }),
+      Right: () => ({ valid: true }),
     });
   }
 };

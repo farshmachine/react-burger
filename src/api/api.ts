@@ -1,5 +1,5 @@
 import { Api } from '../types/api';
-import { IngredientType } from '../types/ingredients';
+import { Ingredient } from '../types/ingredients';
 import { BASE_URL } from '../utils/constants';
 
 export const api: Api = {
@@ -8,12 +8,13 @@ export const api: Api = {
       .then((res) => {
         if (!res.ok) {
           console.error('Что-то пошло не так');
+          return Promise.reject(res.status);
         }
 
         return res.json();
       })
       .catch((err) => err),
-  createOrder: (ingredients: IngredientType[]) =>
+  createOrder: (ingredients: Ingredient[]) =>
     fetch(`${BASE_URL}/orders`, {
       method: 'POST',
       body: JSON.stringify({
@@ -26,6 +27,7 @@ export const api: Api = {
       .then((res) => {
         if (!res.ok) {
           console.error('Что-то пошло не так');
+          return Promise.reject(res.status);
         }
 
         return res.json();

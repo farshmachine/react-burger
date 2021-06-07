@@ -1,20 +1,28 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-inrgedients';
 import Title from '../title/title';
 import styles from './main.module.scss';
 import cn from 'classnames';
-import { IngrediendsListType, IngredientType } from '../../types/ingredients';
-import { ConstructorContext } from '../../contexts/constructor-context';
+import { getIngredients } from '../../services/ingredients/ingredients';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import ErrorIndicator from '../error-indicator/error-indicator';
+import LoadingIndicator from '../loading-indicator/loading-indicator';
+import { useDispatch } from 'react-redux';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const Main = () => {
-  const [items, setItems] = useState<{
-    bun: IngredientType | undefined;
-    other: IngrediendsListType;
-  }>({
-    bun: undefined,
-    other: [],
-  });
+  const {
+    ingredientsRequest: { loading, error },
+    ingredients,
+  } = useAppSelector((state) => state.ingredients);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   const title = useMemo(
     () => (
@@ -27,12 +35,16 @@ const Main = () => {
 
   return (
     <main className={styles.wrapper}>
-      <div className={styles.container}>
-        <ConstructorContext.Provider value={setItems}>
-          <BurgerIngredients title={title} />
-          <BurgerConstructor items={items.other} bun={items.bun} />
-        </ConstructorContext.Provider>
-      </div>
+      {loading && <LoadingIndicator />}
+      {error && <ErrorIndicator error={error} />}
+      {ingredients && (
+        <div className={styles.container}>
+          <DndProvider backend={HTML5Backend}>
+            <BurgerIngredients title={title} />
+            <BurgerConstructor />
+          </DndProvider>
+        </div>
+      )}
     </main>
   );
 };

@@ -1,32 +1,22 @@
 import { FC } from 'react';
-import { IngrediendsListType } from '../../types/ingredients';
+import { IngredientType } from '../../types/ingredients';
 import IngredientList from '../ingredient-list/ingredient-list';
 import styles from './ingredients-menu.module.scss';
+import cn from 'classnames';
 
 type IngredientsMenuProps = {
-  items: IngrediendsListType;
   tabs: {
     label: string;
-    key: string;
+    key: IngredientType;
   }[];
 };
 
-const IngredientsMenu: FC<IngredientsMenuProps> = ({ items, tabs }) => {
-  const ingredients: {
-    [k: string]: IngrediendsListType;
-  } = {
-    bun: [],
-    main: [],
-    sauce: [],
-  };
-
-  items.forEach((e) => ingredients[e.type].push(e));
-
+const IngredientsMenu: FC<IngredientsMenuProps> = ({ tabs }) => {
   return (
-    <div className={styles.wrapper}>
-      {tabs.map(({ label, key }) => (
-        <IngredientList items={ingredients[key]} title={label} key={label} />
-      ))}
+    <div className={cn(styles.wrapper, 'scrollspy')}>
+      {tabs.map(({ label, key }) => {
+        return <IngredientList title={label} key={label} tab={key} />;
+      })}
     </div>
   );
 };
