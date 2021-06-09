@@ -1,0 +1,24 @@
+@import '../../styles/variables';
+
+.wrapper {
+  width: 600px;
+}
+
+.container {
+  height: 912px;
+  overflow-y: auto;
+  margin-top: 20px;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px #2f2f37;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $dark_grey;
+    outline: 1px solid $dark_grey;
+  }
+}

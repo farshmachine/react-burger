@@ -1,3 +1,5 @@
+@import '../../styles/_variables.scss';
+
 .container {
   width: 600px;
   display: flex;
@@ -20,8 +22,8 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #8585ad;
-    outline: 1px solid #8585ad;
+    background-color: $dark_grey;
+    outline: 1px solid $dark_grey;
   }
 }
 

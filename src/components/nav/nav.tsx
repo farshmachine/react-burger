@@ -13,12 +13,13 @@ const Nav: FC<NavProps> = () => {
     () => [
       {
         title: 'Конструктор',
-        icon: <BurgerIcon type='primary' />,
-        type: 'primary',
+        icon: <BurgerIcon type='secondary' />,
+        to: '/',
       },
       {
         title: 'Лента заказов',
         icon: <ListIcon type='secondary' />,
+        to: '/feed',
       },
     ],
     []
@@ -26,8 +27,8 @@ const Nav: FC<NavProps> = () => {
   return (
     <nav>
       <ul className={styles.nav}>
-        {navItems.map(({ title, icon, type }) => (
-          <NavItem title={title} icon={icon} type={type} key={title} />
+        {navItems.map(({ title, icon, to }) => (
+          <NavItem to={to} title={title} icon={icon} key={title} />
         ))}
       </ul>
     </nav>

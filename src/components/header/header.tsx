@@ -17,6 +17,8 @@ export const Header = () => {
         <NavItem
           title={'Личный кабинет'}
           icon={<ProfileIcon type='secondary' />}
+          to='/profile'
+          exact={false}
         />
       </div>
     </div>

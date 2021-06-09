@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 type TitleProps = {
   children: string | JSX.Element;
-  type?: 'default' | 'large' | 'medium' | 'default' | 'small';
+  type?: 'default' | 'large' | 'medium' | 'small';
   className?: string;
 };
 
@@ -14,10 +14,10 @@ const Title = forwardRef<HTMLParagraphElement, TitleProps>(
       <p
         ref={ref}
         className={cn(
-          className,
           styles.title,
           `text_type_main-${type}`,
-          'text'
+          'text',
+          className
         )}
       >
         {children}

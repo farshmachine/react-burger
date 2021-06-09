@@ -1,13 +1,13 @@
 import { useEffect, useMemo } from 'react';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-inrgedients';
-import Title from '../title/title';
+import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
+import BurgerIngredients from '../../components/burger-ingredients/burger-inrgedients';
+import Title from '../../components/title/title';
 import styles from './main.module.scss';
 import cn from 'classnames';
 import { getIngredients } from '../../services/ingredients/ingredients';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import ErrorIndicator from '../error-indicator/error-indicator';
-import LoadingIndicator from '../loading-indicator/loading-indicator';
+import ErrorIndicator from '../../components/error-indicator/error-indicator';
+import LoadingIndicator from '../../components/loading-indicator/loading-indicator';
 import { useDispatch } from 'react-redux';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
@@ -21,8 +21,10 @@ const Main = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getIngredients());
-  }, [dispatch]);
+    if (!ingredients) {
+      dispatch(getIngredients());
+    }
+  }, [dispatch, ingredients]);
 
   const title = useMemo(
     () => (

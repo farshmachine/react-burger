@@ -1,3 +1,5 @@
+@import '../../styles/_variables.scss';
+
 @keyframes ldio-lahailosk2r {
   0% {
     transform: translate(12px, 80px) scale(0);
@@ -28,10 +30,10 @@
     background: #f2f2f3;
   }
   25% {
-    background: #4c4cff;
+    background: $interface_accent;
   }
   50% {
-    background: #8585ad;
+    background: $dark_grey;
   }
   75% {
     background: #801ab3;
@@ -70,11 +72,11 @@
 }
 .ldio-lahailosk2r div:nth-child(4) {
   animation-delay: -0.75s;
-  background: #8585ad;
+  background: $dark_grey;
 }
 .ldio-lahailosk2r div:nth-child(5) {
   animation-delay: -1s;
-  background: #4c4cff;
+  background: $interface_accent;
 }
 .loadingio-spinner-ellipsis-gq2mil12d3 {
   width: 200px;

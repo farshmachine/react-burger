@@ -1,0 +1,26 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.image {
+  width: 64px;
+  height: 64px;
+  margin-right: 16px;
+  object-fit: cover;
+  border: double 3px transparent;
+  border-radius: 50%;
+  background-image: linear-gradient(black, black),
+    linear-gradient(to right, rgba(128, 26, 178, 1), rgba(76, 76, 255, 1));
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+}
+
+.title {
+  max-width: 320px;
+}
+
+.price {
+  margin-left: auto;
+}

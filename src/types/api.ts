@@ -15,4 +15,20 @@ export type Api = {
       message: string;
     };
   }>;
+  resetPasswordRequest: (values: { email: string }) => Promise<{
+    success: boolean;
+    message: string;
+  }>;
+  resetPassword: (values: { password: string; code: string }) => Promise<{
+    success: boolean;
+    message: string;
+  }>;
+  createUser: (values: {
+    username: string;
+    email: string;
+    password: string;
+  }) => Promise<{
+    success: boolean;
+    message: string;
+  }>;
 };

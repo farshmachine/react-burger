@@ -1,3 +1,5 @@
+@import '../../styles/_variables.scss';
+
 .wrapper {
   height: 912px;
   overflow-y: auto;
@@ -11,7 +13,7 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background-color: #8585ad;
-    outline: 1px solid #8585ad;
+    background-color: $dark_grey;
+    outline: 1px solid $dark_grey;
   }
 }
