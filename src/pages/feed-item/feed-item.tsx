@@ -39,7 +39,7 @@ export const FeedItemPage = () => {
       <div className={styles.ingredients}>
         <div>
           {Object.keys(ingredients).map((el) => (
-            <OrderIngredient {...ingredients[el]} />
+            <OrderIngredient {...ingredients[el]} key={el} />
           ))}
         </div>
       </div>

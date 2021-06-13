@@ -25,7 +25,6 @@ const NavItem: FC<NavItemProps> = ({
       activeClassName={styles.active}
       to={to}
       className={cn(styles.button, 'pl-2 pr-2 pb-3 pt-3')}
-      key={title}
       exact={exact}
     >
       {icon && <div className={styles.icon}>{icon}</div>}

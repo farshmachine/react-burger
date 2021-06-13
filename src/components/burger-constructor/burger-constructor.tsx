@@ -59,7 +59,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
 
   const handleButtonClick = useCallback(() => {
     if (bun) {
-      let items = [...main];
+      const items = [...main];
       items.push(bun, bun);
       dispatch(createOrder(items));
     }

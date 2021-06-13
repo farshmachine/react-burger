@@ -2,21 +2,17 @@ import {
   Input,
   PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Title from '../../components/title/title';
 import styles from '../login/login.module.scss';
 import cn from 'classnames';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Button } from '../../components/button/button';
-import { ApiContext } from '../../contexts/api-context';
 
 type ResetPwdPageProps = {};
 
 export const ResetPwdPage: FC<ResetPwdPageProps> = () => {
-  const api = useContext(ApiContext);
-  const history = useHistory();
-
   const {
     handleSubmit,
     handleChange,
@@ -27,11 +23,12 @@ export const ResetPwdPage: FC<ResetPwdPageProps> = () => {
       code: '',
     },
     onSubmit: (values) => {
-      api.resetPassword(values).then(({ success }) => {
-        if (success) {
-          history.replace('/reset-password');
-        }
-      });
+      // TODO Добавить логику восстановления пароля
+      // api.resetPassword(values).then(({ success }) => {
+      //   if (success) {
+      //     history.replace('/reset-password');
+      //   }
+      // });
     },
   });
   return (
@@ -56,7 +53,7 @@ export const ResetPwdPage: FC<ResetPwdPageProps> = () => {
         </div>
 
         <div className={styles.button}>
-          <Button onClick={handleSubmit}>Сохранить</Button>
+          <Button type='submit'>Сохранить</Button>
         </div>
         <Title className={styles.text}>
           <div>

@@ -3,7 +3,9 @@ import { Header } from '../header/header';
 import Main from '../../pages/main/main';
 import styles from './app.module.scss';
 import { ApiContext } from '../../contexts/api-context';
-import { api } from '../../api/api';
+import { ingredientsApi } from '../../api/ingredients';
+import { orderApi } from '../../api/order';
+import { userApi } from '../../api/user';
 import { Provider } from 'react-redux';
 import { store } from '../../services/store';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -17,10 +19,16 @@ import { ProfilePage } from '../../pages/profile-page/profile-page';
 
 type AppProps = {};
 
-let App: FC<AppProps> = () => {
+const App: FC<AppProps> = () => {
   return (
     <div className={styles.app}>
-      <ApiContext.Provider value={api}>
+      <ApiContext.Provider
+        value={{
+          ingredientsApi,
+          orderApi,
+          userApi,
+        }}
+      >
         <Provider store={store}>
           <Router>
             <Header />

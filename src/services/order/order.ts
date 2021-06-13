@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { api } from '../../api/api';
+import { orderApi } from '../../api/order';
 import { IngredientList } from '../../types/ingredients';
 import { AppThunk } from '../store';
 
@@ -53,15 +53,18 @@ export const createOrder =
   (items: IngredientList): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
-    api.createOrder(items).then(({ name, order: { number }, success }) => {
-      dispatch(setLoading(false));
-      if (success) {
-        dispatch(setRequestSuccess(true));
-        dispatch(setOrder({ id: number, name }));
-      } else {
-        dispatch(setRequestFailed('Что-то пошло не так'));
-      }
-    });
+    orderApi
+      .createOrder(items)
+      .then(({ name, order: { number }, success }) => {
+        dispatch(setLoading(false));
+        if (success) {
+          dispatch(setRequestSuccess(true));
+          dispatch(setOrder({ id: number, name }));
+        } else {
+          dispatch(setRequestFailed('Что-то пошло не так'));
+        }
+      })
+      .catch((_err) => dispatch(setRequestFailed('Что-то пошло не так')));
   };
 
 export const { setOrder, setLoading, setRequestFailed, setRequestSuccess } =

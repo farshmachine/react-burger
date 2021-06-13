@@ -1,19 +1,15 @@
 import { EmailInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Title from '../../components/title/title';
 import styles from '../login/login.module.scss';
 import cn from 'classnames';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Button } from '../../components/button/button';
-import { ApiContext } from '../../contexts/api-context';
 
 type ForgotPwdPageProps = {};
 
 export const ForgotPwdPage: FC<ForgotPwdPageProps> = () => {
-  const api = useContext(ApiContext);
-  const history = useHistory();
-
   const {
     handleSubmit,
     handleChange,
@@ -23,11 +19,12 @@ export const ForgotPwdPage: FC<ForgotPwdPageProps> = () => {
       email: '',
     },
     onSubmit: (values) => {
-      api.resetPasswordRequest(values).then(({ success }) => {
-        if (success) {
-          history.replace('/reset-password');
-        }
-      });
+      // TODO добавить логику восстановления пароля
+      // api.resetPasswordRequest(values).then(({ success }) => {
+      //   if (success) {
+      //     history.replace('/reset-password');
+      //   }
+      // });
     },
   });
 
