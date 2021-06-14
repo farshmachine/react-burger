@@ -58,7 +58,7 @@ export const getIngredients = (): AppThunk => async (dispatch) => {
       dispatch(setLoading(false));
       if (success && data) {
         dispatch(setRequestSuccess(true));
-        let res = data.map((el) => ({
+        const res = data.map((el) => ({
           ...el,
           uuid: v4(),
         }));

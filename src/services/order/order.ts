@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { orderApi } from '../../api/order';
-import { IngredientList } from '../../types/ingredients';
 import { AppThunk } from '../store';
 
 type OrderSliceState = {
@@ -50,7 +49,7 @@ const orderSlice = createSlice({
 });
 
 export const createOrder =
-  (items: IngredientList): AppThunk =>
+  (items: { ingredients: string[] }): AppThunk =>
   async (dispatch) => {
     dispatch(setLoading(true));
     orderApi

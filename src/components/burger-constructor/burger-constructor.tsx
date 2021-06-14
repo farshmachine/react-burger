@@ -61,7 +61,11 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
     if (bun) {
       const items = [...main];
       items.push(bun, bun);
-      dispatch(createOrder(items));
+      dispatch(
+        createOrder({
+          ingredients: items.map((item) => item._id),
+        })
+      );
     }
   }, [bun, main, dispatch]);
 

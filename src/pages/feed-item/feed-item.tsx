@@ -8,7 +8,7 @@ import { getOrderList } from '../../utils/mock';
 import styles from './feed-item.module.scss';
 
 export const FeedItemPage = () => {
-  let { id } = useParams<{ id: string }>();
+  const { id } = useParams<{ id: string }>();
   const item = getOrderList().find((el) => el.id === id)!;
   const ingredients = item?.ingredients.reduce(
     (acc, i) => {
