@@ -6,7 +6,6 @@ import Price from '../price/price';
 import styles from './burger-constructor.module.scss';
 import { ConstructorItemBun } from '../contructor-item/constructor-item-bun';
 import cn from 'classnames';
-import { useDispatch } from 'react-redux';
 import { Ingredient } from '../../types/ingredients';
 import { useDrop } from 'react-dnd';
 import {
@@ -16,11 +15,16 @@ import {
 import { useAppSelector } from '../../hooks/useAppSelector';
 import update from 'immutability-helper';
 import { createOrder } from '../../services/order/order';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useUser } from '../../hooks/useUser';
+import { useHistory } from 'react-router-dom';
 
 type BurgerConstructorProps = {};
 
 const BurgerConstructor: FC<BurgerConstructorProps> = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+  const { user } = useUser();
+  const history = useHistory();
   const { openModal } = useModal();
   const { main, bun, totalPrice } = useAppSelector(
     (state) => state.counstructor
@@ -29,7 +33,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
 
   useEffect(() => {
     if (id) {
-      openModal('orderDetails', { orderId: id });
+      openModal('orderDetails', { orderId: `${id}` });
     }
   }, [id, openModal]);
 
@@ -58,16 +62,20 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
   );
 
   const handleButtonClick = useCallback(() => {
-    if (bun) {
-      const items = [...main];
-      items.push(bun, bun);
-      dispatch(
-        createOrder({
-          ingredients: items.map((item) => item._id),
-        })
-      );
+    if (!user) {
+      history.push({ pathname: '/login' });
+    } else {
+      if (bun) {
+        const items = [...main];
+        items.push(bun, bun);
+        dispatch(
+          createOrder({
+            ingredients: items.map((item) => item._id),
+          })
+        );
+      }
     }
-  }, [bun, main, dispatch]);
+  }, [bun, main, dispatch, user, history]);
 
   return (
     <div className={styles.container} ref={dropTarget}>

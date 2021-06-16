@@ -3,13 +3,17 @@ import { FC } from 'react';
 import Title from '../../components/title/title';
 import styles from '../login/login.module.scss';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Button } from '../../components/button/button';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { passwordResetRequest } from '../../services/user/user';
 
 type ForgotPwdPageProps = {};
 
 export const ForgotPwdPage: FC<ForgotPwdPageProps> = () => {
+  const dispatch = useAppDispatch();
+  const history = useHistory();
   const {
     handleSubmit,
     handleChange,
@@ -19,12 +23,11 @@ export const ForgotPwdPage: FC<ForgotPwdPageProps> = () => {
       email: '',
     },
     onSubmit: (values) => {
-      // TODO добавить логику восстановления пароля
-      // api.resetPasswordRequest(values).then(({ success }) => {
-      //   if (success) {
-      //     history.replace('/reset-password');
-      //   }
-      // });
+      dispatch(passwordResetRequest(values)).then((success) => {
+        if (success) {
+          history.replace('/reset-password');
+        }
+      });
     },
   });
 

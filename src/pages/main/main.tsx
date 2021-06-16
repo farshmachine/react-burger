@@ -9,8 +9,6 @@ import { useAppSelector } from '../../hooks/useAppSelector';
 import ErrorIndicator from '../../components/error-indicator/error-indicator';
 import LoadingIndicator from '../../components/loading-indicator/loading-indicator';
 import { useDispatch } from 'react-redux';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const Main = () => {
   const {
@@ -41,10 +39,8 @@ const Main = () => {
       {error && <ErrorIndicator error={error} />}
       {ingredients && (
         <div className={styles.container}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients title={title} />
-            <BurgerConstructor />
-          </DndProvider>
+          <BurgerIngredients title={title} />
+          <BurgerConstructor />
         </div>
       )}
     </main>

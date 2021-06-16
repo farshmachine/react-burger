@@ -6,10 +6,11 @@ type TitleProps = {
   children: string | JSX.Element;
   type?: 'default' | 'large' | 'medium' | 'small';
   className?: string;
+  onClick?: () => void;
 };
 
 const Title = forwardRef<HTMLParagraphElement, TitleProps>(
-  ({ children, type = 'default', className }, ref) => {
+  ({ children, type = 'default', className, onClick }, ref) => {
     return (
       <p
         ref={ref}
@@ -19,6 +20,7 @@ const Title = forwardRef<HTMLParagraphElement, TitleProps>(
           'text',
           className
         )}
+        onClick={onClick}
       >
         {children}
       </p>

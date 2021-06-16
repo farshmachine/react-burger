@@ -15,7 +15,7 @@ type ModalProps = {
 const Modal: FC<ModalProps> = ({ children, isOpened, handleClose }) => {
   return isOpened
     ? ReactDOM.createPortal(
-        <ModalOverlay>
+        <ModalOverlay onClose={handleClose}>
           <div className={styles.wrapper}>
             <div className={styles.closeIcon} onClick={handleClose}>
               <CloseIcon type='primary' />
