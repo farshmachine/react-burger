@@ -23,6 +23,7 @@ const IngredientCard: FC<IngredientCardProps> = ({ item }) => {
     type: 'ingredient',
     item,
   });
+  // TODO Добавить селектор, чтобы не фильтровать для каждого ингридиента
   const count = useAppSelector((state) => {
     if (state.counstructor.bun?._id === item._id) {
       return 2;

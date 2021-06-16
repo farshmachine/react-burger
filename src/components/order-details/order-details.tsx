@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useCallback } from 'react';
 import Digits from '../digits/digits';
 import Title from '../title/title';
 import styles from './order-detalis.module.scss';
@@ -6,6 +6,8 @@ import { ReactComponent as DoneSign } from '../../assets/images/done.svg';
 import Modal from '../modal/modal';
 import { ModalComponentProps } from '../modal-provider/modal-provider';
 import cn from 'classnames';
+import { useDispatch } from 'react-redux';
+import { clearConstructor } from '../../services/constuctor/constructor';
 
 export type OrderDetailsProps = {
   orderId: number;
@@ -16,8 +18,15 @@ const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
   handleClose,
   orderId,
 }) => {
+  const dispatch = useDispatch();
+
+  const handleCloseClick = useCallback(() => {
+    dispatch(clearConstructor());
+    handleClose();
+  }, [handleClose, dispatch]);
+
   return (
-    <Modal isOpened={isOpened} handleClose={handleClose}>
+    <Modal isOpened={isOpened} handleClose={handleCloseClick}>
       <div className={styles.wrapper}>
         <Digits type='large' className={styles.digits}>
           {orderId}

@@ -50,10 +50,17 @@ const constructorSlice = createSlice({
     ) {
       state.main = payload;
     },
+    clearConstructor() {
+      return initialState;
+    },
   },
 });
 
-export const { addIngredient, removeIngredient, reorderIngredients } =
-  constructorSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  reorderIngredients,
+  clearConstructor,
+} = constructorSlice.actions;
 
 export default constructorSlice.reducer;

@@ -58,12 +58,14 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
   );
 
   const handleButtonClick = useCallback(() => {
-    if (main.length > 0 || bun) {
-      let items = [...main];
-      if (bun) {
-        items.push(bun, bun);
-      }
-      dispatch(createOrder(items));
+    if (bun) {
+      const items = [...main];
+      items.push(bun, bun);
+      dispatch(
+        createOrder({
+          ingredients: items.map((item) => item._id),
+        })
+      );
     }
   }, [bun, main, dispatch]);
 

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { v4 } from 'uuid';
-import { api } from '../../api/api';
+import { ingredientsApi } from '../../api/ingredients';
 import { IngredientList, Ingredient } from '../../types/ingredients';
 import { AppThunk } from '../store';
 
@@ -52,20 +52,26 @@ const ingredientsSlice = createSlice({
 
 export const getIngredients = (): AppThunk => async (dispatch) => {
   dispatch(setLoading(true));
-  api.getIngredients().then(({ data, success, error }) => {
-    dispatch(setLoading(false));
-    if (success && data) {
-      dispatch(setRequestSuccess(true));
-      let res = data.map((el) => ({
-        ...el,
-        uuid: v4(),
-      }));
-      dispatch(setIngredients(res));
-    }
-    if (error) {
+  ingredientsApi
+    .getIngredients()
+    .then(({ data, success, error }) => {
+      dispatch(setLoading(false));
+      if (success && data) {
+        dispatch(setRequestSuccess(true));
+        const res = data.map((el) => ({
+          ...el,
+          uuid: v4(),
+        }));
+        dispatch(setIngredients(res));
+      }
+      if (error) {
+        dispatch(setRequestFailed(error.message));
+      }
+    })
+    .catch((error) => {
+      dispatch(setLoading(false));
       dispatch(setRequestFailed(error.message));
-    }
-  });
+    });
 };
 
 export const {

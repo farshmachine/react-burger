@@ -4,11 +4,12 @@ import styles from './price.module.scss';
 import cn from 'classnames';
 
 type PriceProps = {
-  value: number | JSX.Element;
+  value: number | JSX.Element | string;
   className?: string;
   titleClassName?: string;
   iconClassName?: string;
   type?: 'default' | 'large';
+  currency?: boolean;
 };
 
 const Price: FC<PriceProps> = ({
@@ -17,6 +18,7 @@ const Price: FC<PriceProps> = ({
   type = 'default',
   titleClassName,
   iconClassName,
+  currency = true,
 }) => {
   const icon = (
     <div className={iconClassName}>
@@ -27,11 +29,16 @@ const Price: FC<PriceProps> = ({
   return (
     <div className={cn(styles.wrapper, className)}>
       <p
-        className={cn('text text_type mr-1', `digits-${type}`, titleClassName)}
+        className={cn(
+          'text',
+          `text_type_digits-${type}`,
+          'mr-1',
+          titleClassName
+        )}
       >
         {value}
       </p>
-      {icon}
+      {currency && icon}
     </div>
   );
 };

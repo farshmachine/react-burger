@@ -1,18 +1,9 @@
-import { IngredientList, Ingredient } from './ingredients';
+import { ingredientsApi } from '../api/ingredients';
+import { orderApi } from '../api/order';
+import { userApi } from '../api/user';
 
 export type Api = {
-  createOrder: (i: Ingredient[]) => Promise<{
-    name: string;
-    order: {
-      number: number;
-    };
-    success: boolean;
-  }>;
-  getIngredients: () => Promise<{
-    data?: IngredientList;
-    success: boolean;
-    error?: {
-      message: string;
-    };
-  }>;
+  ingredientsApi: typeof ingredientsApi;
+  orderApi: typeof orderApi;
+  userApi: typeof userApi;
 };

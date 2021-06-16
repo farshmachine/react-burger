@@ -1,0 +1,30 @@
+@import '../../styles/_variables.scss';
+
+.wrapper {
+  height: 430px;
+  margin-top: 180px;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.button {
+  margin-bottom: 80px;
+}
+
+.text {
+  color: $dark_grey;
+}
+
+.link {
+  text-decoration: none;
+  color: $interface_accent;
+}
