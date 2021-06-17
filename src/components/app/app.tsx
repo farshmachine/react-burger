@@ -24,7 +24,22 @@ const App: FC<AppProps> = () => {
   const history = useHistory();
   const location = useLocation<{ background: any }>();
   const { pathname } = location;
-  const background = location.state && location.state.background;
+  const background =
+    location.state && location.state.background && history.action !== 'POP';
+
+  const modalContent = pathname.includes('ingredients') ? (
+    <IngredientDetailsPage />
+  ) : (
+    <FeedItemPage />
+  );
+
+  const routeAsModal = background && (
+    <Route path={['/feed/:id', '/profile/orders/:id', '/ingredients/:id']}>
+      <Modal isOpened={true} handleClose={history.goBack}>
+        {modalContent}
+      </Modal>
+    </Route>
+  );
 
   return (
     <div className={styles.app}>
@@ -66,24 +81,7 @@ const App: FC<AppProps> = () => {
               <Main />
             </Route>
           </Switch>
-          {background && (
-            <Route
-              path={['/feed/:id', '/profile/orders/:id', '/ingredients/:id']}
-              children={
-                <Modal
-                  children={
-                    pathname.includes('ingredients') ? (
-                      <IngredientDetailsPage />
-                    ) : (
-                      <FeedItemPage />
-                    )
-                  }
-                  isOpened={true}
-                  handleClose={() => history.goBack()}
-                />
-              }
-            />
-          )}
+          {routeAsModal}
         </div>
       </ApiContext.Provider>
     </div>

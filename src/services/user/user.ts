@@ -6,7 +6,7 @@ import {
   RegisterUserData,
   RegisterUserResponse,
 } from '../../types/user';
-import { deleteCookie } from '../../utils/delete-cookie';
+import { resetTokens } from '../../utils/reset-tokens';
 import { setCookie } from '../../utils/set-cookie';
 import { AppDispatch, AppThunk } from '../store';
 
@@ -101,6 +101,7 @@ const handleAuthResponse = (
 const handleAuthError = (err: any, dispatch: AppDispatch) => {
   dispatch(setLoading(false));
   dispatch(setRequestFailed(err.message));
+  return { success: false, message: err };
 };
 
 export const register =
@@ -138,8 +139,7 @@ export const logout = () => async (dispatch: AppDispatch) => {
       dispatch(setLoading(false));
 
       if (success) {
-        localStorage.removeItem('refreshToken');
-        deleteCookie('accessToken');
+        resetTokens();
       }
     })
     .catch((err) => handleAuthError(err, dispatch));
@@ -174,20 +174,19 @@ export const refreshToken = () => async (dispatch: AppDispatch) => {
   dispatch(setLoading(true));
   const token = localStorage.getItem('refreshToken')!;
 
-  if (token) {
-    return userApi
-      .token({ token })
-      .then(({ refreshToken, accessToken, success }) => {
-        dispatch(setLoading(false));
-        if (success) {
-          localStorage.setItem('refreshToken', refreshToken);
-          setCookie('accessToken', accessToken);
-          dispatch(setTokenInfo(Date.now()));
-          return accessToken;
-        }
-      })
-      .catch((err) => handleAuthError(err, dispatch));
-  }
+  return userApi
+    .token({ token })
+    .then(({ refreshToken, accessToken, success, message }) => {
+      dispatch(setLoading(false));
+      if (success) {
+        localStorage.setItem('refreshToken', refreshToken);
+        setCookie('accessToken', accessToken);
+        dispatch(setTokenInfo(Date.now()));
+      }
+
+      return { success, message };
+    })
+    .catch((err) => handleAuthError(err, dispatch));
 };
 
 export const passwordResetRequest =

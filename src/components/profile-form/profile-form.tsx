@@ -28,7 +28,7 @@ export const ProfileForm = () => {
       email: mail,
     },
     onSubmit: (values) => {
-      dispatch(updateInfo(values)).then();
+      dispatch(updateInfo(values));
     },
   });
 

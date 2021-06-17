@@ -37,9 +37,9 @@ export const setupAxiosInterceptors = (dispatch: AppDispatch) => {
           originalRequest.headers.authorization = getCookie('accessToken');
           return originalRequest;
         }
-
-        return Promise.reject(err);
       }
+
+      return Promise.reject(err);
     }
   );
 };
