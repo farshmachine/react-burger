@@ -47,6 +47,7 @@ const IngredientCard: FC<IngredientCardProps> = ({ item }) => {
       className={styles.card}
       onClick={handleIngredientClick}
       draggable
+      data-test-id='draggble'
     >
       <img src={image} alt={name} className={cn(styles.image, 'mb-1')} />
       <Price value={price} className='mb-1' />

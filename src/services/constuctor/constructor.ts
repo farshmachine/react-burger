@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { v4 } from 'uuid';
 import { Ingredient } from '../../types/ingredients';
 
 type ConstructorSliceState = {
@@ -8,7 +7,7 @@ type ConstructorSliceState = {
   totalPrice: number;
 };
 
-const initialState: ConstructorSliceState = {
+export const initialState: ConstructorSliceState = {
   bun: undefined,
   main: [],
   totalPrice: 0,
@@ -18,16 +17,19 @@ const constructorSlice = createSlice({
   name: 'constructor',
   initialState,
   reducers: {
-    addIngredient(state, { payload }: PayloadAction<Ingredient>) {
+    addIngredient(
+      state,
+      { payload }: PayloadAction<Ingredient & { id: string }>
+    ) {
       if (payload.type === 'bun') {
         if (state.bun) {
           state.totalPrice -= state.bun.price * 2;
         }
 
-        state.bun = { ...payload, id: v4() };
+        state.bun = payload;
         state.totalPrice += payload.price * 2;
       } else {
-        state.main.push({ ...payload, id: v4() });
+        state.main.push(payload);
         state.totalPrice += payload.price;
       }
     },

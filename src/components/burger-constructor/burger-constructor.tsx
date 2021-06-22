@@ -18,6 +18,7 @@ import { createOrder } from '../../services/order/order';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useUser } from '../../hooks/useUser';
 import { useHistory } from 'react-router-dom';
+import { v4 } from 'uuid';
 
 type BurgerConstructorProps = {};
 
@@ -40,7 +41,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
   const [, dropTarget] = useDrop({
     accept: 'ingredient',
     drop(item: Ingredient) {
-      dispatch(addIngredient(item));
+      dispatch(addIngredient({ ...item, id: v4() }));
     },
   });
 
@@ -78,7 +79,11 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
   }, [bun, main, dispatch, user, history]);
 
   return (
-    <div className={styles.container} ref={dropTarget}>
+    <div
+      className={styles.container}
+      ref={dropTarget}
+      data-test-id='dropTarget'
+    >
       {bun && <ConstructorItemBun item={bun} type='first' />}
       <ul className={`${styles.wrapper}`}>
         {main.map((item, i) => (
