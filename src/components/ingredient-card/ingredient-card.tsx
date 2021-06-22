@@ -1,15 +1,15 @@
 import { Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useCallback } from 'react';
-import { useModal } from '../../hooks/useModal';
 import { Ingredient } from '../../types/ingredients';
 import Price from '../price/price';
 import Title from '../title/title';
 import cn from 'classnames';
 import styles from './ingredient-card.module.scss';
-import { useDispatch } from 'react-redux';
 import { setCurrentIngredient } from '../../services/ingredients/ingredients';
 import { useAppSelector } from '../../hooks/useAppSelector';
 import { useDrag } from 'react-dnd';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { useHistory, useLocation } from 'react-router-dom';
 
 type IngredientCardProps = {
   item: Ingredient;
@@ -17,8 +17,9 @@ type IngredientCardProps = {
 
 const IngredientCard: FC<IngredientCardProps> = ({ item }) => {
   const { _id, name, price, image } = item;
-  const { openModal } = useModal();
-  const dispatch = useDispatch();
+  const history = useHistory();
+  const location = useLocation();
+  const dispatch = useAppDispatch();
   const [, dragRef] = useDrag({
     type: 'ingredient',
     item,
@@ -33,8 +34,11 @@ const IngredientCard: FC<IngredientCardProps> = ({ item }) => {
 
   const handleIngredientClick = useCallback(() => {
     dispatch(setCurrentIngredient(item));
-    openModal('ingredientDetails', { item });
-  }, [item, openModal, dispatch]);
+    history.push({
+      pathname: `/ingredients/${item._id}`,
+      state: { background: location },
+    });
+  }, [item, dispatch, history, location]);
 
   return (
     <li

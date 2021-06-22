@@ -45,6 +45,9 @@ const orderSlice = createSlice({
     setRequestSuccess(state, { payload }: PayloadAction<boolean>) {
       state.orderRequest.success = payload;
     },
+    resetOrderState() {
+      return initialState;
+    },
   },
 });
 
@@ -66,7 +69,12 @@ export const createOrder =
       .catch((_err) => dispatch(setRequestFailed('Что-то пошло не так')));
   };
 
-export const { setOrder, setLoading, setRequestFailed, setRequestSuccess } =
-  orderSlice.actions;
+export const {
+  setOrder,
+  setLoading,
+  setRequestFailed,
+  setRequestSuccess,
+  resetOrderState,
+} = orderSlice.actions;
 
 export default orderSlice.reducer;

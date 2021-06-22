@@ -8,9 +8,10 @@ import { ModalComponentProps } from '../modal-provider/modal-provider';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { clearConstructor } from '../../services/constuctor/constructor';
+import { resetOrderState } from '../../services/order/order';
 
 export type OrderDetailsProps = {
-  orderId: number;
+  orderId: string;
 };
 
 const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
@@ -22,6 +23,7 @@ const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
 
   const handleCloseClick = useCallback(() => {
     dispatch(clearConstructor());
+    dispatch(resetOrderState());
     handleClose();
   }, [handleClose, dispatch]);
 

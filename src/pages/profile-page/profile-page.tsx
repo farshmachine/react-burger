@@ -1,29 +1,29 @@
-import { Route, Switch, useLocation, useRouteMatch } from 'react-router-dom';
+import { Switch, useLocation, useRouteMatch } from 'react-router-dom';
 import { ProfileForm } from '../../components/profile-form/profile-form';
 import { ProfileMenu } from '../../components/profile-menu/profile-menu';
+import { ProtectedRoute } from '../../components/protected-route/protected-route';
 import { FeedItemPage } from '../feed-item/feed-item';
 import { ProfileOrdersPage } from '../profile-orders/profile-orders';
 import styles from './profile-page.module.scss';
 
 export const ProfilePage = () => {
   const { path } = useRouteMatch();
-  const { pathname } = useLocation();
-
+  const { pathname } = useLocation<{ background: any }>();
   const isOrderPage = pathname.split('/').length === 4;
 
   return (
     <div className={styles.wrapper}>
       {!isOrderPage && <ProfileMenu />}
       <Switch>
-        <Route path={path} exact>
+        <ProtectedRoute path={path} exact>
           <ProfileForm />
-        </Route>
-        <Route path={`${path}/orders`} exact>
+        </ProtectedRoute>
+        <ProtectedRoute path={`${path}/orders`} exact>
           <ProfileOrdersPage />
-        </Route>
-        <Route path={'/profile/orders/:id'}>
+        </ProtectedRoute>
+        <ProtectedRoute path={'/profile/orders/:id'}>
           <FeedItemPage />
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </div>
   );

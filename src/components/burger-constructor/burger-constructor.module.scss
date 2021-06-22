@@ -5,6 +5,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 160px;
+  position: relative;
 }
 
 .wrapper {
@@ -51,11 +52,11 @@
 
 .basket {
   display: flex;
-  justify-content: end;
   margin-left: auto;
   align-items: center;
-  margin-top: 40px;
-  margin-right: 16px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 
   .button {
     margin-left: 40px;

@@ -1,44 +1,60 @@
 import {
   EmailInput,
   Input,
-  PasswordInput,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import Title from '../../components/title/title';
 import styles from '../login/login.module.scss';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Button } from '../../components/button/button';
 import { useFormik } from 'formik';
+import { PasswordInput } from '../../components/password-input/password-input';
+import { useDispatch } from 'react-redux';
+import { refreshToken, register } from '../../services/user/user';
+import { FormError } from '../../components/form-error/form-error';
+import { useUser } from '../../hooks/useUser';
 
 type RegisterProps = {};
 
 export const RegisterPage: FC<RegisterProps> = () => {
+  const dispatch = useDispatch();
+  const { loading, error, tokenUpdateDate, isTokenUpdated, hasToken } =
+    useUser();
+
   const {
     handleSubmit,
     handleChange,
-    values: { username, password, email },
+    values: { name, password, email },
   } = useFormik({
     initialValues: {
-      username: '',
+      name: '',
       password: '',
       email: '',
     },
     onSubmit: (values) => {
-      // TODO Добавить логику создания юзера
-      // api.createUser(values).then((data) => {
-      //   console.log(`data`, data);
-      // });
+      dispatch(register(values));
     },
   });
+
+  useEffect(() => {
+    if (!isTokenUpdated && hasToken) {
+      dispatch(refreshToken());
+    }
+  }, []);
+
+  if (tokenUpdateDate && isTokenUpdated) {
+    return <Redirect to={'/'} />;
+  }
+
   return (
     <div className={styles.wrapper}>
       <Title className={cn(styles.title, 'mb-6')}>Регистрация</Title>
       <form className={styles.form} onSubmit={handleSubmit}>
         <div className='mb-6'>
           <Input
-            name='username'
-            value={username}
+            name='name'
+            value={name}
             size='default'
             onChange={handleChange}
             placeholder='Имя'
@@ -56,12 +72,14 @@ export const RegisterPage: FC<RegisterProps> = () => {
           <PasswordInput
             name='password'
             value={password}
-            size='default'
             onChange={handleChange}
           />
         </div>
+        {error && <FormError text={error} />}
         <div className={styles.button}>
-          <Button type='submit'>Зарегистрироваться</Button>
+          <Button type='submit' disabled={loading}>
+            {loading ? 'Ожидайте...' : 'Зарегистрироваться'}
+          </Button>
         </div>
         <Title className={styles.text}>
           <div>

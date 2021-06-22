@@ -1,7 +1,5 @@
 import { ReactNode, useCallback, useState, createContext } from 'react';
-import IngredientDetails, {
-  IngredientDetailsProps,
-} from '../ingredient-details/ingredient-details';
+import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails, {
   OrderDetailsProps,
 } from '../order-details/order-details';
@@ -10,7 +8,7 @@ type ModalType = 'orderDetails' | 'ingredientDetails';
 
 type ModalPropsMap = {
   orderDetails: OrderDetailsProps;
-  ingredientDetails: IngredientDetailsProps;
+  ingredientDetails: unknown;
 };
 
 type ModalProps<T extends ModalType> = ModalPropsMap[T];

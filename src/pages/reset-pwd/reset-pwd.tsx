@@ -6,31 +6,41 @@ import { FC } from 'react';
 import Title from '../../components/title/title';
 import styles from '../login/login.module.scss';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, useHistory } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { Button } from '../../components/button/button';
+import { useUser } from '../../hooks/useUser';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { passwordReset } from '../../services/user/user';
 
 type ResetPwdPageProps = {};
 
 export const ResetPwdPage: FC<ResetPwdPageProps> = () => {
+  const { passwordResetRequested } = useUser();
+  const dispatch = useAppDispatch();
+  const history = useHistory();
   const {
     handleSubmit,
     handleChange,
-    values: { password, code },
+    values: { password, token },
   } = useFormik({
     initialValues: {
       password: '',
-      code: '',
+      token: '',
     },
     onSubmit: (values) => {
-      // TODO Добавить логику восстановления пароля
-      // api.resetPassword(values).then(({ success }) => {
-      //   if (success) {
-      //     history.replace('/reset-password');
-      //   }
-      // });
+      dispatch(passwordReset(values)).then((success) => {
+        if (success) {
+          history.replace('/');
+        }
+      });
     },
   });
+
+  if (!passwordResetRequested) {
+    return <Redirect to={'/'} />;
+  }
+
   return (
     <div className={styles.wrapper}>
       <Title className={cn(styles.title, 'mb-6')}>Восстановление пароля</Title>
@@ -45,8 +55,8 @@ export const ResetPwdPage: FC<ResetPwdPageProps> = () => {
         </div>
         <div className='mb-6'>
           <Input
-            name='code'
-            value={code}
+            name='token'
+            value={token}
             onChange={handleChange}
             placeholder='Введите код из письма'
           />

@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useLocation, useRouteMatch } from 'react-router-dom';
 import { IngredientList } from '../../types/ingredients';
 import { OrderTime } from '../order-time/order-time';
 import Price from '../price/price';
@@ -25,6 +25,7 @@ const OrderItem: FC<OrderItemProps> = ({
   className,
 }) => {
   const { url } = useRouteMatch();
+  const location = useLocation();
   const images = ingredients.map((el, index) => (
     <img
       src={el.image}
@@ -36,7 +37,13 @@ const OrderItem: FC<OrderItemProps> = ({
     />
   ));
   return (
-    <Link to={`${url}/${id}`} className={styles.link}>
+    <Link
+      to={{
+        pathname: `${url}/${id}`,
+        state: { background: location },
+      }}
+      className={styles.link}
+    >
       <div className={cn(styles.wrapper, className)}>
         <div className={styles.title}>
           <Title>{`#${id}`}</Title>
