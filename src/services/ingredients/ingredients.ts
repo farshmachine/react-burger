@@ -15,7 +15,7 @@ type IngredientsSliceState = {
   };
 };
 
-const initialState: IngredientsSliceState = {
+export const initialState: IngredientsSliceState = {
   ingredients: undefined,
   currentIngredient: undefined,
   ingredientsRequest: {
@@ -46,6 +46,9 @@ const ingredientsSlice = createSlice({
     },
     setRequestSuccess(state, { payload }: PayloadAction<boolean>) {
       state.ingredientsRequest.success = payload;
+    },
+    resetIngredients() {
+      return initialState;
     },
   },
 });
@@ -80,6 +83,7 @@ export const {
   setIngredients,
   setRequestFailed,
   setRequestSuccess,
+  resetIngredients,
 } = ingredientsSlice.actions;
 
 export default ingredientsSlice.reducer;

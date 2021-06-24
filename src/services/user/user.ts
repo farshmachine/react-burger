@@ -24,7 +24,7 @@ type UserSliceState = {
   };
 };
 
-const initialState: UserSliceState = {
+export const initialState: UserSliceState = {
   email: '',
   name: '',
   isTokenUpdated: false,

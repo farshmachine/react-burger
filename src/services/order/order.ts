@@ -13,7 +13,7 @@ type OrderSliceState = {
   };
 };
 
-const initialState: OrderSliceState = {
+export const initialState: OrderSliceState = {
   id: undefined,
   name: '',
   orderRequest: {
