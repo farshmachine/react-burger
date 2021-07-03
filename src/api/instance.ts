@@ -12,7 +12,7 @@ const instance = axios.create({
 export const setupAxiosInterceptors = (dispatch: AppDispatch) => {
   instance.interceptors.request.use((config) => {
     const { method, url } = config;
-    if (method === 'patch' || (method === 'get' && url === '/auth/user')) {
+    if (method === 'patch' || (method === 'get' && url === '/auth/user') || method === 'post') {
       config.headers.authorization = getCookie('accessToken');
     }
 

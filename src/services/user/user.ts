@@ -54,7 +54,7 @@ const userSlice = createSlice({
     },
     setUser(
       state,
-      { payload }: PayloadAction<{ name: string; email: string }>
+      { payload }: PayloadAction<{ name: string; email: string; }>
     ) {
       // TODO Any other methods to set multiple values?
       state.name = payload.name;
@@ -106,27 +106,27 @@ const handleAuthError = (err: any, dispatch: AppDispatch) => {
 
 export const register =
   (data: RegisterUserData): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-    userApi
-      .register(data)
-      .then((data) => {
-        handleAuthResponse(data, dispatch);
-      })
-      .catch((err) => handleAuthError(err, dispatch));
-  };
+    async (dispatch) => {
+      dispatch(setLoading(true));
+      userApi
+        .register(data)
+        .then((data) => {
+          handleAuthResponse(data, dispatch);
+        })
+        .catch((err) => handleAuthError(err, dispatch));
+    };
 
 export const login =
   (data: LoginUserData): AppThunk =>
-  async (dispatch) => {
-    dispatch(setLoading(true));
-    userApi
-      .login(data)
-      .then((data) => {
-        handleAuthResponse(data, dispatch);
-      })
-      .catch((err) => handleAuthError(err, dispatch));
-  };
+    async (dispatch) => {
+      dispatch(setLoading(true));
+      userApi
+        .login(data)
+        .then((data) => {
+          handleAuthResponse(data, dispatch);
+        })
+        .catch((err) => handleAuthError(err, dispatch));
+    };
 
 export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(resetState());
@@ -190,7 +190,7 @@ export const refreshToken = () => async (dispatch: AppDispatch) => {
 };
 
 export const passwordResetRequest =
-  (data: { email: string }) => async (dispatch: AppDispatch) => {
+  (data: { email: string; }) => async (dispatch: AppDispatch) => {
     dispatch(setLoading(true));
 
     return userApi
@@ -208,22 +208,22 @@ export const passwordResetRequest =
   };
 
 export const passwordReset =
-  (data: { password: string; token: string }) =>
-  async (dispatch: AppDispatch) => {
-    dispatch(setLoading(true));
+  (data: { password: string; token: string; }) =>
+    async (dispatch: AppDispatch) => {
+      dispatch(setLoading(true));
 
-    return userApi
-      .resetPassword(data)
-      .then(({ success, message }) => {
-        if (success) {
-          return success;
-        } else {
-          handleAuthError(message, dispatch);
-          return Promise.reject(message);
-        }
-      })
-      .catch((err) => handleAuthError(err, dispatch));
-  };
+      return userApi
+        .resetPassword(data)
+        .then(({ success, message }) => {
+          if (success) {
+            return success;
+          } else {
+            handleAuthError(message, dispatch);
+            return Promise.reject(message);
+          }
+        })
+        .catch((err) => handleAuthError(err, dispatch));
+    };
 
 export const {
   setLoading,

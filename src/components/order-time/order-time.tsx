@@ -6,7 +6,7 @@ import Title from '../title/title';
 const ruLocale = moment().locale('ru');
 
 type OrderTimeProps = {
-  value: number;
+  value: string;
   className?: string;
 };
 

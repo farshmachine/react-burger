@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Header } from '../header/header';
 import Main from '../../pages/main/main';
 import styles from './app.module.scss';
@@ -17,15 +17,25 @@ import { ProfilePage } from '../../pages/profile-page/profile-page';
 import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
 import IngredientDetailsPage from '../ingredient-details/ingredient-details';
+import { useAppDispatch } from '../../hooks/useAppDispatch';
+import { getIngredients, resetIngredients } from '../../services/ingredients/ingredients';
 
 type AppProps = {};
 
 const App: FC<AppProps> = () => {
   const history = useHistory();
-  const location = useLocation<{ background: any }>();
+  const location = useLocation<{ background: any; }>();
   const { pathname } = location;
   const background =
     location.state && location.state.background && history.action !== 'POP';
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getIngredients());
+
+    return () => { dispatch(resetIngredients()); };
+  }, []);
 
   const modalContent = pathname.includes('ingredients') ? (
     <IngredientDetailsPage />

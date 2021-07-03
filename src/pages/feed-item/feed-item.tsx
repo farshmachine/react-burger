@@ -3,18 +3,23 @@ import { OrderIngredient } from '../../components/order-ingredient/order-ingredi
 import { OrderTime } from '../../components/order-time/order-time';
 import Price from '../../components/price/price';
 import Title from '../../components/title/title';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import { Ingredient } from '../../types/ingredients';
-import { getOrderList } from '../../utils/mock';
 import styles from './feed-item.module.scss';
 
 export const FeedItemPage = () => {
-  const { id } = useParams<{ id: string }>();
-  const item = getOrderList().find((el) => el.id === id)!;
-  const ingredients = item?.ingredients.reduce(
+  const { id } = useParams<{ id: string; }>();
+  const { orders } = useAppSelector(state => state.order);
+  const { ingredients: ings } = useAppSelector(state => state.ingredients);
+  const item = orders!.find((el) => el._id === id)!;
+  const price = item.ingredients.reduce((sum, item) => {
+    return sum += ings!.find(i => i._id === item)!.price;
+  }, 0);
+  const ingredients = item.ingredients.map(i => ings!.find(ing => ing._id === i)).reduce(
     (acc, i) => {
-      acc[i.name] = {
-        item: i,
-        count: item.ingredients.filter((el) => el._id === i._id).length,
+      acc[i!.name] = {
+        item: i!,
+        count: item.ingredients.filter((el) => el === i!._id).length,
       };
       return acc;
     },
@@ -28,7 +33,7 @@ export const FeedItemPage = () => {
 
   return (
     <div className={styles.wrapper}>
-      <Price className={styles.order} value={`#${id}`} currency={false}></Price>
+      <Price className={styles.order} value={`#${item.number}`} currency={false}></Price>
       <Title type='medium' className={styles.name}>
         {item.name}
       </Title>
@@ -44,8 +49,8 @@ export const FeedItemPage = () => {
         </div>
       </div>
       <div className={styles.info}>
-        <OrderTime value={item.orderTime} className={styles.time} />
-        <Price value={item.price} />
+        <OrderTime value={item.createdAt} className={styles.time} />
+        <Price value={price} />
       </div>
     </div>
   );
