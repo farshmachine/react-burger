@@ -4,6 +4,7 @@ import constructorReducer from './constuctor/constructor';
 import orderReducer from './order/order';
 import userReducer from './user/user';
 import { setupAxiosInterceptors } from '../api/instance';
+import { wsMiddleware } from '../middleware/socket-middleware';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +14,8 @@ export const store = configureStore({
     user: userReducer,
   },
   devTools: process.env.NODE_ENV !== 'production',
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(wsMiddleware('test')),
 });
 
 setupAxiosInterceptors(store.dispatch);
