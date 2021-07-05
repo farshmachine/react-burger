@@ -6,6 +6,7 @@ import Title from '../title/title';
 import styles from './order-item.module.scss';
 import cn from 'classnames';
 import { useAppSelector } from '../../hooks/useAppSelector';
+import { translateStatus } from '../../utils/translate-status';
 
 type OrderItemProps = {
   _id: string;
@@ -14,6 +15,7 @@ type OrderItemProps = {
   ingredients: string[];
   className: string;
   name: string;
+  status: string;
 };
 
 const OrderItem: FC<OrderItemProps> = ({
@@ -22,11 +24,13 @@ const OrderItem: FC<OrderItemProps> = ({
   number,
   createdAt,
   ingredients,
+  status,
   className,
 }) => {
   const { ingredients: items } = useAppSelector(state => state.ingredients);
   const { url } = useRouteMatch();
   const location = useLocation();
+  const isProfileFeed = location.pathname.includes('profile');
   const images = ingredients.map(i => items?.find(item => item._id === i)).map((el, index) => (
     <img
       src={el!.image}
@@ -55,6 +59,7 @@ const OrderItem: FC<OrderItemProps> = ({
           <OrderTime value={createdAt} className={styles.time} />
         </div>
         <Title className={styles.name}>{name}</Title>
+        {isProfileFeed && <Title className={styles.name} type='small'>{translateStatus(status)}</Title>}
         <div className={styles.footer}>
           <div className={styles.images}>{images}</div>
           <Price value={price} />

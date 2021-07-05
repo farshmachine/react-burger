@@ -4,11 +4,10 @@ import { OrderInfo } from '../../components/order-info/order-info';
 import { OrderList } from '../../components/order-list/order-list';
 import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useAppSelector } from '../../hooks/useAppSelector';
-import { resetOrderState } from '../../services/order/order';
 import { connect, disconnect } from '../../services/ws/ws';
 import styles from './feed.module.scss';
 
-const feedUrl = 'wss://norma.nomoreparties.space/orders/all';
+export const feedUrl = 'wss://norma.nomoreparties.space/orders/all';
 
 export const FeedPage = () => {
   const { opened } = useAppSelector(state => state.ws);

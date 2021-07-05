@@ -7,7 +7,7 @@ import { connect, disconnect } from '../../services/ws/ws';
 import { getCookie } from '../../utils/get-cookie';
 import styles from './profile-orders.module.scss';
 
-const userFeedUrl = `wss://norma.nomoreparties.space/orders?token=${getCookie('accessToken')?.split(' ')[1]}`;
+export const userFeedUrl = `wss://norma.nomoreparties.space/orders?token=${getCookie('accessToken')?.split(' ')[1]}`;
 
 export const ProfileOrdersPage = () => {
   const { opened } = useAppSelector(state => state.ws);
