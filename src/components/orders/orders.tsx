@@ -1,25 +1,20 @@
 import { FC } from 'react';
-import { IngredientList } from '../../types/ingredients';
+import { useAppSelector } from '../../hooks/useAppSelector';
 import OrderItem from '../order-item/order-item';
 import styles from './order.module.scss';
 
 type OrdersProps = {
-  data: {
-    id: string;
-    orderTime: number;
-    name: string;
-    ingredients: IngredientList;
-    price: number;
-  }[];
   itemClassName?: string;
 };
 
-export const Orders: FC<OrdersProps> = ({ data, itemClassName = '' }) => {
+export const Orders: FC<OrdersProps> = ({ itemClassName = '' }) => {
+  const { orders } = useAppSelector(state => state.order);
+
   return (
-    <div className={styles.container}>
-      {data.map((item) => (
-        <OrderItem className={itemClassName} key={item.id} {...item} />
+    orders ? <div className={styles.container}>
+      {orders.map((item) => (
+        <OrderItem className={itemClassName} key={item.number} {...item} />
       ))}
-    </div>
+    </div> : null
   );
 };

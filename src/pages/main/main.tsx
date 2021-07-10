@@ -16,14 +16,6 @@ const Main = () => {
     ingredients,
   } = useAppSelector((state) => state.ingredients);
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (!ingredients) {
-      dispatch(getIngredients());
-    }
-  }, [dispatch, ingredients]);
-
   const title = useMemo(
     () => (
       <Title type='large' className={cn('mb-3 mt-3', styles.title)}>

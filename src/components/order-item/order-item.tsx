@@ -1,55 +1,65 @@
 import { FC } from 'react';
 import { Link, useLocation, useRouteMatch } from 'react-router-dom';
-import { IngredientList } from '../../types/ingredients';
 import { OrderTime } from '../order-time/order-time';
 import Price from '../price/price';
 import Title from '../title/title';
 import styles from './order-item.module.scss';
 import cn from 'classnames';
+import { useAppSelector } from '../../hooks/useAppSelector';
+import { translateStatus } from '../../utils/translate-status';
 
 type OrderItemProps = {
-  id: string;
-  orderTime: number;
-  name: string;
-  ingredients: IngredientList;
-  price: number;
+  _id: string;
+  createdAt: string;
+  number: number;
+  ingredients: string[];
   className: string;
+  name: string;
+  status: string;
 };
 
 const OrderItem: FC<OrderItemProps> = ({
-  id,
-  orderTime,
+  _id,
   name,
+  number,
+  createdAt,
   ingredients,
-  price,
+  status,
   className,
 }) => {
+  const { ingredients: items } = useAppSelector(state => state.ingredients);
   const { url } = useRouteMatch();
   const location = useLocation();
-  const images = ingredients.map((el, index) => (
+  const isProfileFeed = location.pathname.includes('profile');
+  const images = ingredients.map(i => items?.find(item => item._id === i)).map((el, index) => (
     <img
-      src={el.image}
-      alt={el.name}
-      key={el.uuid}
+      src={el!.image}
+      alt={el!.name}
+      key={index}
       style={{
         zIndex: -index,
       }}
     />
   ));
+  const price = ingredients.reduce((sum, item) => {
+    return sum += items!.find(i => i._id === item)!.price;
+  }, 0);
+
   return (
     <Link
       to={{
-        pathname: `${url}/${id}`,
+        pathname: `${url}/${_id}`,
         state: { background: location },
       }}
       className={styles.link}
     >
       <div className={cn(styles.wrapper, className)}>
         <div className={styles.title}>
-          <Title>{`#${id}`}</Title>
-          <OrderTime value={orderTime} className={styles.time} />
+          <Title>{`#${number}`}</Title>
+          <OrderTime value={createdAt} className={styles.time} />
         </div>
         <Title className={styles.name}>{name}</Title>
+        {isProfileFeed && <Title className={styles.name} type='small'>{translateStatus(status)}</Title>}
         <div className={styles.footer}>
           <div className={styles.images}>{images}</div>
           <Price value={price} />
