@@ -8,7 +8,7 @@ import styles from './profile-page.module.scss';
 
 export const ProfilePage = () => {
   const { path } = useRouteMatch();
-  const { pathname } = useLocation<{ background: any }>();
+  const { pathname } = useLocation();
   const isOrderPage = pathname.split('/').length === 4;
 
   return (

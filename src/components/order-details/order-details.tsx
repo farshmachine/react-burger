@@ -11,7 +11,7 @@ import { clearConstructor } from '../../services/constuctor/constructor';
 import { resetOrderState } from '../../services/order/order';
 
 export type OrderDetailsProps = {
-  orderId: string;
+  orderId?: string;
 };
 
 const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
@@ -28,6 +28,7 @@ const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
   }, [handleClose, dispatch]);
 
   return (
+    orderId ? 
     <Modal isOpened={isOpened} handleClose={handleCloseClick}>
       <div className={styles.wrapper}>
         <Digits type='large' className={styles.digits}>
@@ -46,7 +47,7 @@ const OrderDetails: FC<ModalComponentProps<'orderDetails'>> = ({
           Дождитесь готовности на орбитальной станции
         </Title>
       </div>
-    </Modal>
+    </Modal> : null
   );
 };
 

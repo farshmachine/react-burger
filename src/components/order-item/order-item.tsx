@@ -28,8 +28,6 @@ const OrderItem: FC<OrderItemProps> = ({
   className,
 }) => {
   const { ingredients: items } = useAppSelector(state => state.ingredients);
-  console.log(items);
-  console.log(ingredients);
   const { url } = useRouteMatch();
   const location = useLocation();
   const isProfileFeed = location.pathname.includes('profile');

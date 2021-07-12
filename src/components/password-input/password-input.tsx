@@ -6,7 +6,7 @@ type PasswordInputPorps = {
   placehlder?: string;
   size?: 'default' | 'small';
   value: string;
-  onChange: (e: string | ChangeEvent<any>) => void;
+  onChange: (e: string | ChangeEvent<HTMLInputElement>) => void;
 };
 
 export const PasswordInput: FC<PasswordInputPorps> = ({
