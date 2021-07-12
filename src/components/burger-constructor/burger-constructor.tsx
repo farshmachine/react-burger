@@ -1,4 +1,3 @@
-import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC, useCallback, useEffect } from 'react';
 import { useModal } from '../../hooks/useModal';
 import ContructorItem from '../contructor-item/contructor-item';
@@ -19,6 +18,7 @@ import { useAppDispatch } from '../../hooks/useAppDispatch';
 import { useUser } from '../../hooks/useUser';
 import { useHistory } from 'react-router-dom';
 import { v4 } from 'uuid';
+import { Button } from '../button/button';
 
 type BurgerConstructorProps = {};
 
@@ -30,6 +30,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
   const { main, bun, totalPrice } = useAppSelector(
     (state) => state.counstructor
   );
+  const { loading } = useAppSelector(state => state.order.orderRequest);
   const { id } = useAppSelector((state) => state.order);
 
   useEffect(() => {
@@ -103,7 +104,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
           titleClassName={styles.price}
         />
         <div className={cn(styles.button)}>
-          <Button type='primary' size='large' onClick={handleButtonClick}>
+          <Button kind='primary' onClick={handleButtonClick} disabled={loading}>
             Оформить заказ
           </Button>
         </div>

@@ -17,7 +17,7 @@ type ContructorItemProps = {
   item: Ingredient & { id: string };
   className?: string;
   locked?: boolean;
-  moveCard?: (dragIndex: any, hoverIndex: any) => void;
+  moveCard?: (dragIndex: number, hoverIndex: number) => void;
   index: number;
 };
 

@@ -28,13 +28,15 @@ const OrderItem: FC<OrderItemProps> = ({
   className,
 }) => {
   const { ingredients: items } = useAppSelector(state => state.ingredients);
+  console.log(items);
+  console.log(ingredients);
   const { url } = useRouteMatch();
   const location = useLocation();
   const isProfileFeed = location.pathname.includes('profile');
   const images = ingredients.map(i => items?.find(item => item._id === i)).map((el, index) => (
     <img
-      src={el!.image}
-      alt={el!.name}
+      src={el?.image}
+      alt={el?.name}
       key={index}
       style={{
         zIndex: -index,
@@ -42,7 +44,7 @@ const OrderItem: FC<OrderItemProps> = ({
     />
   ));
   const price = ingredients.reduce((sum, item) => {
-    return sum += items!.find(i => i._id === item)!.price;
+    return sum += items!.find(i => i._id === item)?.price || 0;
   }, 0);
 
   return (
