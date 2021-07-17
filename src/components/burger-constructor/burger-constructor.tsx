@@ -35,7 +35,7 @@ const BurgerConstructor: FC<BurgerConstructorProps> = () => {
 
   useEffect(() => {
     if (id) {
-      openModal('orderDetails', { orderId: `${id}` });
+      openModal('orderDetails', { orderId: id.toString() });
     }
   }, [id, openModal]);
 

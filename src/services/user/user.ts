@@ -56,7 +56,6 @@ const userSlice = createSlice({
       state,
       { payload }: PayloadAction<{ name: string; email: string; }>
     ) {
-      // TODO Any other methods to set multiple values?
       state.name = payload.name;
       state.email = payload.email;
     },
@@ -98,9 +97,9 @@ const handleAuthResponse = (
   }
 };
 
-const handleAuthError = (err: any, dispatch: AppDispatch) => {
+const handleAuthError = (err: string = '', dispatch: AppDispatch) => {
   dispatch(setLoading(false));
-  dispatch(setRequestFailed(err.message));
+  dispatch(setRequestFailed(err));
   return { success: false, message: err };
 };
 
@@ -150,7 +149,7 @@ export const updateInfo =
     dispatch(setLoading(true));
     return userApi
       .update(data)
-      .then(({ success, user, message }) => {
+      .then(({ success, user }) => {
         dispatch(setLoading(false));
 
         if (success) {

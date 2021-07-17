@@ -21,7 +21,7 @@ export const userApi = {
   logout: (data: { token: string }): Promise<ServerResponse> =>
     requests.post('/auth/logout', data),
   update: (data: Partial<RegisterUserData>): Promise<UpdateUserResponse> =>
-    requests.patch('/auth/user', data),
+    requests.patch('/auth/user123', data),
   user: (): Promise<RegisterUserResponse> => requests.get('/auth/user'),
   forgotPassword: (data: { email: string }): Promise<ServerResponse> =>
     requests.post('/password-reset', data),

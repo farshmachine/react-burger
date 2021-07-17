@@ -27,9 +27,7 @@ export const FeedPage = () => {
       {opened && <div className={styles.container}>
         <OrderList />
         <OrderInfo />
-
       </div>}
-
     </div>
   );
 };

@@ -1,14 +1,12 @@
 import { ReactNode, useCallback, useState, createContext } from 'react';
-import IngredientDetails from '../ingredient-details/ingredient-details';
 import OrderDetails, {
   OrderDetailsProps,
 } from '../order-details/order-details';
 
-type ModalType = 'orderDetails' | 'ingredientDetails';
+type ModalType = 'orderDetails';
 
 type ModalPropsMap = {
   orderDetails: OrderDetailsProps;
-  ingredientDetails: unknown;
 };
 
 type ModalProps<T extends ModalType> = ModalPropsMap[T];
@@ -40,9 +38,8 @@ export const ModalContext = createContext<{
   closeModal: () => {},
 });
 
-const modalsMap: { [K in ModalType]: React.FC<any> } = {
+const modalsMap: { [K in ModalType]: React.FC<ModalComponentProps<K>> } = {
   orderDetails: OrderDetails,
-  ingredientDetails: IngredientDetails,
 };
 
 const initialState = {

@@ -7,6 +7,7 @@ import { ingredientsApi } from '../../api/ingredients';
 import { orderApi } from '../../api/order';
 import { userApi } from '../../api/user';
 import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import { Location } from 'history';
 import { LoginPage } from '../../pages/login/login';
 import { RegisterPage } from '../../pages/register/register';
 import { ForgotPwdPage } from '../../pages/forgot-pwd/forgot-pwd';
@@ -24,10 +25,10 @@ type AppProps = {};
 
 const App: FC<AppProps> = () => {
   const history = useHistory();
-  const location = useLocation<{ background: any; }>();
+  const location = useLocation<{background: Location}>();
   const { pathname } = location;
-  const background =
-    location.state && location.state.background && history.action !== 'POP';
+  const background = history.action !== 'POP' &&
+    location.state && location.state.background;
 
   const dispatch = useAppDispatch();
 

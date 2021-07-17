@@ -45,7 +45,7 @@ export const setupAxiosInterceptors = (dispatch: AppDispatch) => {
 };
 
 const responseBody = (response: AxiosResponse) => response.data;
-const responseError = ({ response }: any) => {
+const responseError = (response: AxiosResponse) => {
   if (response.status === 404) {
     return {
       message: 'Запрос не найден',
